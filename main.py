@@ -15,32 +15,7 @@ import seaborn as sns
 import os
 from tqdm import tqdm
 
-# Read data from csv file (The first row is the header)
-data = pd.read_csv('data/small.csv', header=0)
-data.columns = ['s', 'a', 'r', 's_prime']
 
-# Creates a dictionarray that for each state contains a dictionary of each action
-# and the corresponding next state and reward
-# This takes into account that we do not contain all couples of state-action
-data_dict = {}
-# Loop over all rows
-for i in tqdm(range(data.shape[0])):
-    # Get state, action, next state, and reward
-    s = data.iloc[i, 0]
-    a = data.iloc[i, 1]
-    s_prime = data.iloc[i, 3]
-    r = data.iloc[i, 2]
-    # If state is not in dictionary, add it
-    if s not in data_dict:
-        data_dict[s] = {}
-    # Add action, next state, and reward to dictionary
-    new_entry = (s_prime, r)
-    if a not in data_dict[s]:
-        data_dict[s][a] = {}
-    if new_entry not in data_dict[s][a]:
-        data_dict[s][a][new_entry] = 1
-    else:
-        data_dict[s][a][new_entry] += 1
 
 # Sorts the set of states and actiosn and create 4 dictionaries
 # that map each state to an index and vice versa
@@ -62,29 +37,7 @@ for i in range(len(sorted_set_of_actions)):
     action_to_index[action] = i
     index_to_action[i] = action
 
-
-def get_available_actions(s):
-    """Returns a list of available actions for a given state."""
-    return list(data_dict[s].keys())
-
-def sample_action(s):
-    """Samples an action for a given state."""
-    # Get all possible actions
-    actions = get_available_actions(s)
-    # Sample an action
-    action = np.random.choice(actions)
-    return action
-
-def sample_outcome(s, a):
-    """Samples an outcome for a given state and action."""
-    # Get all possible outcomes
-    outcomes = list(data_dict[s][a].keys())
-    # Get the probabilities of each outcome
-    probs = np.array(list(data_dict[s][a].values()))
-    probs = probs / np.sum(probs)
-    # Sample an outcome
-    outcome = outcomes[np.random.choice(len(probs), p=probs)]
-    return outcome
+    
 
 # Initialize Q-table
 Q = np.zeros((len(sorted_set_of_states), len(sorted_set_of_actions)))
