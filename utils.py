@@ -62,4 +62,4 @@ def save_policy(policy, model_size='small'):
     Converts the action to integer."""
     # Save policy to csv file
     policy_df = pd.DataFrame(policy, dtype=int)
-    policy_df.to_csv('data/' + model_size + '.policy', index=False, header=False)
+    policy_df.to_csv('output/' + model_size + '.policy', index=False, header=False)
