@@ -99,9 +99,9 @@ for repet in range(1):
     print("\nRepetition: " + str(repet))
     # Initialize parameters
     alpha = 0.05
-    gamma = 0.995
+    gamma = 0.99
     epsilon = 0.2
-    num_episodes = 400000
+    num_episodes = 2000000
     num_iter = 1000
 
     # Q-learning algorithm
