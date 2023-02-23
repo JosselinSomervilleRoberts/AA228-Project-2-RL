@@ -16,7 +16,7 @@ def get_data_dict(model_size='small'):
     # This takes into account that we do not contain all couples of state-action
     data_dict = {}
     # Loop over all rows
-    for i in tqdm(range(data.shape[0])):
+    for i in tqdm(range(data.shape[0]), desc="Sorting data"):
         # Get state, action, next state, and reward
         s = data.iloc[i, 0]
         a = data.iloc[i, 1]
