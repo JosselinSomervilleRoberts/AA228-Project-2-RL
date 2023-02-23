@@ -98,15 +98,17 @@ policy = None
 for repet in range(1):
     print("\nRepetition: " + str(repet))
     # Initialize parameters
-    alpha = 0.05
+    alpha_max = 0.1
     gamma = 0.99
     epsilon = 0.2
-    num_episodes = 2000000
+    num_episodes = 500000
     num_iter = 1000
 
     # Q-learning algorithm
     # (It is adapted since we do not contain all couples of state-action)
     for episode in tqdm(range(num_episodes), desc="Q-learning"):
+        # Update learning rate
+        alpha = alpha_max * (1 - episode / num_episodes)
         # Initialize to random state
         s = np.random.choice(sorted_set_of_states)
         idx_s = s - 1
