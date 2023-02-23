@@ -2,10 +2,14 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-def get_data_dict(model_size='small'):
+def get_data(model_size='small'):
     # Read data from csv file (The first row is the header)
     data = pd.read_csv('data/' + model_size + '.csv', header=0)
     data.columns = ['s', 'a', 'r', 's_prime']
+    return data
+
+def get_data_dict(model_size='small'):
+    data = get_data(model_size)
 
     # Creates a dictionarray that for each state contains a dictionary of each action
     # and the corresponding next state and reward
